@@ -1,14 +1,8 @@
-import {
-  returnRealEstateSchema,
-  testTyp,
-} from "./../../schemas/realEstate.schemas";
+import { returnCreateRealEstate } from "./../../schemas/realEstate.schemas";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
-import {
-  iPartialRealEstate,
-  iReturnRealEstate,
-} from "../../interfaces/realEstate.interface";
+import { iReturnRealEstate } from "../../interfaces/realEstate.interface";
 import { AppError } from "../../errors";
 
 export const createRealEstateService = async (
@@ -50,7 +44,7 @@ export const createRealEstateService = async (
 
   await realEstateRepository.save(realEstate);
 
-  const newRealEstate = testTyp.parse(realEstate);
+  const newRealEstate = returnCreateRealEstate.parse(realEstate);
 
   return newRealEstate;
 };
