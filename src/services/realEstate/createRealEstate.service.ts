@@ -1,22 +1,27 @@
 import { returnCreateRealEstate } from "./../../schemas/realEstate.schemas";
-import { Repository } from "typeorm";
+
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
-import { iReturnRealEstate } from "../../interfaces/realEstate.interface";
+import {
+  iAddress,
+  iCreateRealEstateReturn,
+  iRealEstate,
+  iReturnRealEstate,
+} from "../../interfaces/realEstate.interface";
 import { AppError } from "../../errors";
 
 export const createRealEstateService = async (
-  realEstateData: any,
-  addressData: any
-): Promise<iReturnRealEstate> => {
+  realEstateData: iRealEstate,
+  addressData: iAddress
+): Promise<iCreateRealEstateReturn> => {
   const categoryRepository = AppDataSource.getRepository(Category);
   const realEstateRepository = AppDataSource.getRepository(RealEstate);
   const addressRepository = AppDataSource.getRepository(Address);
 
-  const categoryData = realEstateData.categoryId;
+  const categoryDataId = realEstateData.categoryId;
 
   const category = await categoryRepository.findOne({
-    where: { id: categoryData },
+    where: { id: categoryDataId },
   });
 
   if (!category) {

@@ -1,6 +1,10 @@
-import { simpleRealEstateReturnSchema } from "./../schemas/realEstate.schemas";
-import { RealEstate } from "./../entities/realEstate.entity";
-import { DeepPartial } from "typeorm";
+import {
+  addressSchema,
+  returnAddressSchema,
+  returnAllListRealEstate,
+  returnCreateRealEstate,
+} from "./../schemas/realEstate.schemas";
+
 import { z } from "zod";
 import {
   realEstateSchema,
@@ -12,9 +16,12 @@ import {
 export type iRealEstate = z.infer<typeof realEstateSchema>;
 export type iReturnRealEstate = z.infer<typeof returnRealEstateSchema>;
 export type iReturnALlRealEstate = z.infer<typeof returnMultRealEstate>;
+export type iAddress = z.infer<typeof addressSchema>;
+
+export type iCreateRealEstateReturn = z.infer<typeof returnCreateRealEstate>;
 
 export type iReturnRealEstateByCategory = z.infer<
   typeof returnRealEstateByCategory
 >;
 
-export type iPartialRealEstate = DeepPartial<RealEstate>;
+export type iReturnAllListRealEstate = z.infer<typeof returnAllListRealEstate>;

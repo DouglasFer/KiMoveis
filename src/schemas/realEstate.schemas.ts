@@ -9,16 +9,16 @@ export const addressSchema = z.object({
   state: z.string().max(2),
 });
 
-export const returnAdressSchema = addressSchema.extend({
-  id: z.number().optional(),
+export const returnAddressSchema = addressSchema.extend({
+  id: z.number(),
 });
 
 export const realEstateSchema = z.object({
-  sold: z.boolean().default(false),
+  sold: z.boolean().default(false).optional(),
   value: z.number().or(z.string()),
   size: z.number().positive(),
-  address: returnAdressSchema,
-  categoryId: z.number().optional(),
+  categoryId: z.number(),
+  address: addressSchema,
 });
 
 export const returnRealEstateSchema = realEstateSchema.extend({
@@ -28,6 +28,12 @@ export const returnRealEstateSchema = realEstateSchema.extend({
 });
 
 export const returnMultRealEstate = returnRealEstateSchema.array();
+
+export const returnAllListRealEstate = returnRealEstateSchema.omit({
+  categoryId: true,
+});
+
+export const allListRealEstate = returnRealEstateSchema.array();
 
 export const simpleRealEstateSchema = returnRealEstateSchema.omit({
   address: true,
@@ -42,6 +48,11 @@ export const returnRealEstateByCategory = returnCategorySchema.extend({
   realEstate: simpleRealEstateSchema.array(),
 });
 
-export const testTyp = returnRealEstateSchema.extend({
-  category: returnCategorySchema,
-});
+export const returnCreateRealEstate = returnRealEstateSchema
+  .extend({
+    category: returnCategorySchema,
+    address: returnAddressSchema,
+  })
+  .omit({
+    categoryId: true,
+  });

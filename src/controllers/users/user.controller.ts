@@ -31,7 +31,9 @@ export const updateUserController = async (
   const userData: iUserUpdate = request.body;
   const idUser = parseInt(request.params.id);
 
-  const updatedUser = await updateUserService(userData, idUser);
+  const admin = request.user.admin;
+
+  const updatedUser = await updateUserService(userData, idUser, admin);
 
   return response.json(updatedUser);
 };
@@ -39,7 +41,8 @@ export const deleteUserController = async (
   request: Request,
   response: Response
 ) => {
-  await deleteUserService(parseInt(request.params.id));
+  const admin = request.user.admin;
+  await deleteUserService(parseInt(request.params.id), admin);
 
   return response.status(204).send();
 };
