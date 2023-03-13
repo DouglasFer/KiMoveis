@@ -5,7 +5,7 @@ import { listSchedulesByRealEstate } from "../../services/schedules/listSchedule
 export const createScheduleController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const schedule = request.body;
   const idUser = request.user.id;
 
@@ -17,7 +17,7 @@ export const createScheduleController = async (
 export const listAllSchedulesByRealEstateController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const id = parseInt(request.params.id);
 
   const returnAllList = await listSchedulesByRealEstate(id);

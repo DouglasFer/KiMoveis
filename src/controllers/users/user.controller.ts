@@ -8,7 +8,7 @@ import { updateUserService } from "../../services/users/updateUser.service";
 export const createUserController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const userData: iUser = request.body;
   const newUser = await createUserService(userData);
 
@@ -18,7 +18,7 @@ export const createUserController = async (
 export const listUserController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const users = await listUsersService();
 
   return response.json(users);
@@ -27,7 +27,7 @@ export const listUserController = async (
 export const updateUserController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const userData: iUserUpdate = request.body;
   const idUser = parseInt(request.params.id);
 
@@ -40,7 +40,7 @@ export const updateUserController = async (
 export const deleteUserController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const admin = request.user.admin;
   await deleteUserService(parseInt(request.params.id), admin);
 

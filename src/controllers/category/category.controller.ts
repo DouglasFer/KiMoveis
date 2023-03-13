@@ -17,7 +17,7 @@ export const createCategoryController = async (
 export const listCategoriesController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const categories = await listCategoriesService();
 
   return response.json(categories);
@@ -26,7 +26,7 @@ export const listCategoriesController = async (
 export const listCategoryByRealEstateController = async (
   request: Request,
   response: Response
-) => {
+): Promise<Response> => {
   const id: number = parseInt(request.params.id);
   const realEstate = await listRealEstateByCategoryService(id);
 
